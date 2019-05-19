@@ -1,76 +1,55 @@
 const button = document.querySelector('button')
 const h4 = document.querySelector('h4')
 const start = document.querySelector('input')
-let letters = ['A','B','C','D','E','F','G','H']
-let numbers = [1,2,3,4,5,6,7,8]
+
 
 //Определяем введенное значение
 button.addEventListener('click', move)
 
 function move() {
-        
-    let start1 = start.value.slice(0,1)
+    let letters = ['A','B','C','D','E','F','G','H']    
+    let startCurrent = start.value.slice(0,1)
     let y = parseInt(start.value.slice(1,2)) // положение по оси y
-    h4.textContent = start.value
     let x = 0 // положение по оси x
 
     letters.forEach(function(element,index) {
-        if (start1 === element) {
+        if (startCurrent === element) {
             x = index
         }
     })
     //массив с возможными вариантами хода конем
     let varsX = [x+2,x+2,x-2,x-2,x+1,x+1,x-1,x-1]
     let varsY = [y-1,y+1,y-1,y+1,y-2,y+2,y-2,y+2]
+   
 
+    let isField = [] //массив с проверкой входа в поле
+    for (let i = 0; i < 8; i++) {
+        isField.push((varsX[i]>=0 && varsX[i]<=7) && (varsY[i]>0 && varsY[i]<=7))//из-за индексирования массива с нуля по оси y устраняем элементы
+    }            
 
-    //проверяем входит ли ячейка в поле
-    function isField(element) {
-        return element >= 0 & element <=7
+    let varXCurrent = [] // промежуточные массивы, находящиеся в поле
+    let varYCurrent = []
+    for (let i = 0; i < 8; i++) {
+        if (isField[i] === true) {
+            varXCurrent.push(varsX[i])
+            varYCurrent.push(varsY[i])
         }
-    //проверяем какой элемент нужно убрать для 2 подмассива varsY
-    varsX.forEach(function(element,index) {
-        if (element < 0 | element >7) console.log(index)
-    })
-    console.log(varsX)
-    console.log(varsY.filter(isField))
+    }
+    for (let i = 0; i < 8; i++) { // обзываем
+        if (varXCurrent[i] === 0) {varXCurrent[i] = 'A'}
+        if (varXCurrent[i] === 1) {varXCurrent[i] = 'B'}
+        if (varXCurrent[i] === 2) {varXCurrent[i] = 'C'}
+        if (varXCurrent[i] === 3) {varXCurrent[i] = 'D'}
+        if (varXCurrent[i] === 4) {varXCurrent[i] = 'E'}
+        if (varXCurrent[i] === 5) {varXCurrent[i] = 'F'}
+        if (varXCurrent[i] === 6) {varXCurrent[i] = 'G'}
+        if (varXCurrent[i] === 7) {varXCurrent[i] = 'H'}       
+    }
+    let str = [] //сводим массивы поэлементно
+    for (let i = 0; i < 8; i++) {
+        str[i] = varXCurrent[i] + varYCurrent[i]
+    }
+    let strVar = str.filter(Boolean) //фильтруем undefined
+    
+    h4.textContent = strVar.toString()  
 }
-
-
-
-
-// let mas = [[1,1],[1,2],[1,3],[1,4],[1,5],[1,6],[1,7],[1,8],
-//            [2,1],[2,2],[2,3],[2,4],[2,5],[2,6],[2,7],[2,8]]
-// let s = parseFloat(mas[[3]])+parseFloat(possibleMoves[[0]])
-// console.log(s)
-// function matrixArray(rows,columns){
-//     var arr = new Array()
-//     let x=1,y=8
-//     for(var i=0; i<rows; i++){
-//       arr[i] = new Array()
-//       for(var j=0; j<columns; j++){
-//         arr[i][j] = i,j
-//       }
-//     }
-//     return arr
-//   }
-// var myMatrix = matrixArray(8,8);
-// console.log(myMatrix)
-
-
-// console.log(myMatrix[3])
-// for (let i=1; i<65; i++) {
-//     let excel = 
-// }
-// let excel = []
-// let x=1,y=8
-// for (let i=1; i<65; i++) {
-//     if (x>8) {
-//         x=1
-//         y--
-//     }
-//     excel[i] = x;
-//     excel[i] = y;
-//     x++
-// }
-

@@ -35,7 +35,7 @@ function move() {
             varYCurrent.push(varsY[i])
         }
     }
-    for (let i = 0; i < 8; i++) { // обзываем
+    for (let i = 0; i < 8; i++) { // обзываем.  switch не зашел)
         if (varXCurrent[i] === 0) {varXCurrent[i] = 'A'}
         if (varXCurrent[i] === 1) {varXCurrent[i] = 'B'}
         if (varXCurrent[i] === 2) {varXCurrent[i] = 'C'}
